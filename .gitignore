@@ -1,0 +1,34 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Archives 2021
+0-archives_2021/*
+2-scripts/utils/parametres_experimentations_wordstat.xlsx
+2-scripts/utils/fig_results.png
+2-scripts/temp.ipynb
+2-scripts/read_zst_to_ndjson.py
+
+# zst files
+*archives_pushift/*
+1-data/incels/subreddits/askanincel_comments.ndjson
+1-data/incels/subreddits/Braincels_comments.ndjson
+1-data/incels/subreddits/foreverAlone_comments.ndjson
+1-data/incels/subreddits/ForeverAloneDating_comments.ndjson
+1-data/incels/subreddits/Incels_comments.ndjson
+1-data/incels/subreddits/Incelselfies_comments.ndjson
+1-data/incels/subreddits/IncelsInAction_comments.ndjson
+1-data/incels/subreddits/IncelsWithoutHate_comments.ndjson
+1-data/incels/subreddits/shortcels_comments.ndjson
+1-data/neutral/archives_pushshift/RC_2014-09.zst
+1-data/neutral/archives_pushshift/RC_2016-04.zst
+1-data/neutral/archives_pushshift/RC_2015-03.zst
+1-data/neutral/archives_pushshift/RC_2017-05.zst
+1-data/neutral/archives_pushshift/RC_2018-06.zst
+1-data/neutral/archives_pushshift/RC_2019-07.zst
+1-data/neutral/archives_pushshift/RC_2020-08.zst
+1-data/neutral/archives_pushshift/RC_2021-10.zst
+1-data/neutral/archives_pushshift/RC_2022-02.zst
+1-data/incels/ribeiro_reddit.ndjson
