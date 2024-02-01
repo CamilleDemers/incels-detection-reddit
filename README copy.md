@@ -1,12 +1,12 @@
-**Automatic Misogyny Detection on Social Media Platforms: The Case of Reddit and Incels communities**<br/> 
+**Détection automatique de propos misogynes en ligne: le cas de Reddit et des communautés Incels**<br/> 
 Camille Demers, Isabelle Fontaine, Audrée Frappier et Dominic Forest
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Ce dépôt contient : 
-- L'entièreté du corpus d'apprentissage et de test, de sa forme brute prétraitée (lue et convertie en sous-fichiers au format tableur) jusqu'à l'échantillon filtré que nous avons retenu pour développer notre modèle. 
+- L'entièreté du corpus d'apprentissage et de test prétraitée et filtré 
 - Les scripts utilisés pour lire, filtrer, nettoyer et échantillonner aléatoirement différentes proportions de données d'apprentissage
-- L'ensemble des modèles développés dans l'outil Wordstat (fichiers .ppj) à partir de différentes proportions de données issues de chacune des catégories
+- L'ensemble des modèles développés avec *sk-learn* à partir de différentes proportions de données issues de chacune des catégories
 - Le détail des paramètres testés en phase d'apprentissage : 
    - Les ratios "incels"/"neutres" testés
    - Les critères relatifs au filtrage  du corpus d'apprentissage (liste d'exclusion de termes ; fréquence minimale d'occurrence, nombre maximal de traits discriminants à retenir, etc.)
