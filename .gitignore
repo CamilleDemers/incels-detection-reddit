@@ -1,8 +1,0 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# Archives 2021
-0-archives_2021/*
