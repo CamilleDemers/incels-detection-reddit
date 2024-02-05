@@ -4,7 +4,7 @@ Camille Demers, Isabelle Fontaine, Audrée Frappier et Dominic Forest
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Ce dépôt contient : 
-- L'entièreté du corpus d'apprentissage et de test prétraitée et filtré 
+- L'entièreté du corpus d'apprentissage et de test prétraité et filtré 
 - Les scripts utilisés pour lire, filtrer, nettoyer et échantillonner aléatoirement différentes proportions de données d'apprentissage
 - L'ensemble des modèles développés avec *sk-learn* à partir de différentes proportions de données issues de chacune des catégories
 - Le détail des paramètres testés en phase d'apprentissage : 
