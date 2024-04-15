@@ -3,9 +3,8 @@ import re
 import os
 import string
 
-### NLTK : Stopword filtering & tokenization
+### NLTK : Stopwords
 from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
 
 punct = string.punctuation
 punct += '’'
