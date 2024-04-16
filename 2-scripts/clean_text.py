@@ -3,19 +3,8 @@ import re
 import os
 import string
 
-### NLTK : Stopwords
-from nltk.corpus import stopwords
-
 punct = string.punctuation
 punct += '’'
-
-stopw = stopwords.words('english')
-for w in stopw:
-    w_nopunct = re.sub(f'[{punct}]', '', w)
-    if w_nopunct not in stopw:
-        stopw.append(w_nopunct)
-
-stopw += ["'d", "'ll", "'re", "'s", "'ve", 'could', 'might', 'must', "n't", 'need', 'sha', 'wo', 'would']
 
 def cleanText(text):
     text = re.sub(f'[{punct}]', '', text) 
