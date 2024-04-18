@@ -25,3 +25,13 @@ for file in datasets:
     df = df[['cleaned_text_post', 'category']]
 
     df.to_excel('../2-scripts/1-preprocessing/cleaned_' + file, index=False)
+
+dataset_test = '../1-data/test_dataset_10pc.xlsx'
+ratio = '10'
+df = pd.read_excel(dataset_test)
+
+# Nettoyage
+df['cleaned_text_post'] = df['text_post'].astype(str).apply(cleanText)
+df = df[['cleaned_text_post', 'category']]
+
+df.to_excel('../1-data/cleaned_test_dataset_10pc.xlsx', index=False)
