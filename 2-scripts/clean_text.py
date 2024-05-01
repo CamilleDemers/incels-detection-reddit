@@ -7,7 +7,7 @@ punct = string.punctuation
 punct += '’'
 
 def cleanText(text):
-    text = re.sub(f'[{punct}]', '', text) 
+    text = re.sub(f'[{punct}]', ' ', text) 
     text = text.replace('\n', '')
     text = text.lower()
     return text
