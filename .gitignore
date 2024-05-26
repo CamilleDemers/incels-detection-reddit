@@ -11,8 +11,8 @@ __pycache__/
 2-scripts/temp.ipynb
 2-scripts/read_zst_to_ndjson.py
 
-# zst files
-*archives_pushift/*
+# data files
 1-data/*
-2-scripts/utils/infos_connexion_calcul_quebec.txt
-2-scripts/1-preprocessing/*
+
+# results archives
+3-results/*
