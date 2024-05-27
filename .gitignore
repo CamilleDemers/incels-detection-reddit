@@ -10,6 +10,8 @@ __pycache__/
 2-scripts/utils/fig_results.png
 2-scripts/temp.ipynb
 2-scripts/read_zst_to_ndjson.py
+2-scripts/archives/*
+
 
 # data files
 1-data/*
