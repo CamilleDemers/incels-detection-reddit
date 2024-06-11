@@ -12,6 +12,7 @@ pip install -r requirements.txt
 ```
 
 ## Structure du répertoire
+```
 incels-detection-reddit/
 ├── data/                   # Dossier est absent du répertoire git, mais il devrait aborder la structure suivante
 │   │
@@ -34,7 +35,7 @@ incels-detection-reddit/
 ├── .gitignore              # Dossiers et fichiers à ignorer par git
 ├── README.md               # Description du projet
 └── requirements.txt        # Dépendances nécessaires pour rouler les scripts
-
+```
 
 ## Utilisation des scripts
 ```
