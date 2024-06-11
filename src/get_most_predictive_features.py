@@ -29,7 +29,7 @@ def tokenize_lemmatize_remove_stop_words(text: str) -> List[str]:
 ]
 
 data = pd.read_excel(
-    '../1-data/training_datasets/train_dataset_30pc.xlsx')
+    '../data/training_datasets/train_dataset_30pc.xlsx')
 
 dic = {'neutral':0, 'incel': 1}
 data['label'] = data['category'].map(dic)

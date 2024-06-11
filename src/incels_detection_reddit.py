@@ -33,9 +33,9 @@ CORES = multiprocessing.cpu_count()
 STOPWORDS = list(stopwords.words('english')) + [
     "'d", "'ll", "'re", "'s", "'ve", '``', 'could', 'might', 'must', "n't", 'need', 'sha', 'wo', 'would'
 ]
-DATA_FOLDER = '../1-data/training_datasets'
-TEST_DATA_FILE = '../1-data/test_dataset_10.xlsx'
-RESULTS_FOLDER = '../3-results'
+DATA_FOLDER = '../data/training_datasets'
+TEST_DATA_FILE = '../data/test_dataset_10.xlsx'
+RESULTS_FOLDER = '../results'
 N_FEATURES_VALUES = [100, 200, 300, 400, 500, 750, 1000, 2500, 5000, 10000, 15000]
 
 SCORING = {
