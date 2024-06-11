@@ -1,9 +1,42 @@
-**Détecter le discours des *incels* sur Reddit : une approche par sac de communautés**<br/> 
+# **Détecter le discours des *incels* sur Reddit : une approche par sac de communautés**<br/> 
+
+## Description
+Ce dépôt contient les scripts utilisés pour lire, nettoyer et échantillonner les données utilisées pour entraîner les modèles décrits dans l'article. Il contient également les fichiers de résultats obtenus pour chacune des configurations testées en phase d'apprentissage et de test. 
+
+## Structure du répertoire 
+
+## Installation
+```
+# Cloner le répertoire
+git clone https://github.com/CamilleDemers/incels-detection-reddit.git
+
+# Librairies nécessaires pour rouler les scripts
+pip install -r requirements.txt
+```
+
+## Utilisation des scripts
+```
+# Lire les fichiers de données provenant de The-Eye / PushShift 
+python scripts/read_incels_zst_to_csv.py
+python scripts/read_incels_zst_to_csv.py
+
+# Constituer les corpus d'apprentissage et de test en échantillonnat les données incels/neutres 
+python scripts/build_train_test_datasets.py
+ 
+# Entraîner les modèles et générer les résultats d'apprentissage et de test
+python scripts/incels_detection_reddit.py
+
+# Extraire les traits prédictifs des classes "incels" et "neutres"
+python scripts/get_most_predictive_features.py
+```
+
+## Informations de contact 
+
 Camille Demers et Dominic Forest
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-Ce dépôt contient les scripts utilisés pour lire, nettoyer et échantillonner les données utilisées pour entraîner les modèles décrits dans l'article, ainsi que les résultats obtenus pour chacune des configurations testées en phase d'apprentissage et de test. 
+
 
 **Sources des jeux de données utilisés pour entraîner les modèles** <br/>
 - Ribeiro, M. H., Blackburn, J., Bradlyn, B., de Cristofaro, E., Stringhini, G., Long, S., Greenberg, S. et Zannettou, S. (2020). *Dataset for: The Evolution of the Manosphere Across the Web* (version 1.0) [Ensemble de données]. Zenodo. https://doi.org/10.5281/zenodo.4007913 
