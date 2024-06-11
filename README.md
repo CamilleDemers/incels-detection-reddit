@@ -15,27 +15,27 @@ pip install -r requirements.txt
 Pour exécuter les scripts correctement, le répertoire devrait avoir la structure suivante :
 ```
 incels-detection-reddit/
-├── data/                   # Données brutes et prétraitées 
+├── data/                  # Données brutes et prétraitées 
 │   │
-│   ├─ incels/             # Données prétraitées pour la classe "incels"
+│   ├── incels/            # Données prétraitées pour la classe "incels"
 │   │   │
-│   │   └─ the-eye_pushshift/  # Données brutes pour la classe "incels"
+│   │   └── the-eye_pushshift/  # Données brutes pour la classe "incels"
 │   │
-│   ├─ neutrals/           # Données prétraitées pour la classe "neutres"
+│   ├── neutrals/          # Données prétraitées pour la classe "neutres"
 │   │   │
-│   │   └─ the-eye_pushshift/  # Données brutes pour la classe "neutres"
+│   │   └── the-eye_pushshift/  # Données brutes pour la classe "neutres"
 │   │
 │   └── training_datasets/  # Jeux de données pour entraîner les modèles
 │
-├── src/                    # Scripts nécessaires au prétraitement des données et à l'entraînement des modèles
+├── src/                   # Scripts nécessaires au prétraitement des données et à l'entraînement des modèles
 │   │
-│   ├── utils/              # Fichiers utilitaires utilisés lors de l'exécution des scripts (ex. mots fonctionnels)
+│   ├── utils/             # Fichiers utilitaires utilisés lors de l'exécution des scripts (ex. mots fonctionnels)
 │
-├── results/                # Fichiers de résultats générés lors de l'exécution des scripts
+├── results/               # Fichiers de résultats générés lors de l'exécution des scripts
 │
-├── .gitignore              # Dossiers et fichiers à ignorer par git
-├── README.md               # Description du projet
-└── requirements.txt        # Dépendances nécessaires pour rouler les scripts
+├── .gitignore             # Dossiers et fichiers à ignorer par git
+├── README.md              # Description du projet
+└── requirements.txt       # Dépendances nécessaires pour rouler les scripts
 ```
 
 ## Utilisation des scripts
