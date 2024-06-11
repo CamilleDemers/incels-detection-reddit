@@ -3,7 +3,34 @@
 ## Description
 Ce dépôt contient les scripts utilisés pour lire, nettoyer et échantillonner les données utilisées pour entraîner les modèles décrits dans l'article. Il contient également les fichiers de résultats obtenus pour chacune des configurations testées en phase d'apprentissage et de test. 
 
-## Structure du répertoire 
+## Structure du répertoire
+```
+incels-detection-reddit/
+├───1-data		# Données brutes et prétraitées - Ce dossier est absent du répertoire git,
+|    |			# mais il devrait aborder la structure suivante
+|    |
+│   │   test_dataset_10.xlsx	# Corpus utilisé pour évaluer les modèles
+│   │
+│   ├───incels		# Données prétraitées pour la classe "incels"
+│   │   │
+│   │   └───the-eye_pushshift	# Données brutes pour la classe "incels"
+│   │
+│   ├───neutrals		# Données prétraitées pour la classe "neutres"
+│   │   │
+│   │   └───the-eye_pushshift	# Données brutes pour la classe "neutres"
+│   │
+│   └───training_datasets	# Corpus utilisés pour entraîner les modèles (selon différents ratios de données "incels")
+│
+├───2-scripts		# Scripts nécessaires au prétraitement des données et à l'entraînement des modèles
+│   │
+│   ├───utils		# Fichiers utilitaires utilisés lors de l'exécution des scripts (ex. mots fonctionnels)
+│
+├───3-results		# Fichiers de résultats générés lors de l'exécution des scripts
+│
+│   .gitignore		# Dossiers et fichiers à ignorer par git
+│   README.md		# Description du projet
+│   requirements.txt		# Dépendances nécessaires pour rouler les scripts 
+```
 
 ## Installation
 ```
