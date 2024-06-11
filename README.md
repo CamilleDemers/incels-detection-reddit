@@ -12,7 +12,7 @@ pip install -r requirements.txt
 ```
 
 ## Structure du répertoire
-Pour exécuter les scripts correctement, le répertoire devrait avoir la structure suivante :
+Pour exécuter les scripts correctement, le répertoire devrait arborer la structure suivante :
 ```
 incels-detection-reddit/
 ├── data/                  # Données brutes et prétraitées 
