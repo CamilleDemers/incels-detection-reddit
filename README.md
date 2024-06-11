@@ -29,7 +29,7 @@ incels-detection-reddit/
 │
 ├── src/                   # Scripts nécessaires au prétraitement des données et à l'entraînement des modèles
 │   │
-│   ├── utils/             # Fichiers utilitaires utilisés lors de l'exécution des scripts (ex. mots fonctionnels)
+│   ├── utils/             # Fichiers utilitaires utilisés lors de l'exécution des scripts
 │
 ├── results/               # Fichiers de résultats générés lors de l'exécution des scripts
 │
