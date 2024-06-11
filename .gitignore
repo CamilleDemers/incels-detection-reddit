@@ -5,11 +5,11 @@ __pycache__/
 .ipynb_checkpoints
 
 # data files
-1-data/*
+data/*
 
 # archives files
-2-scripts/archives/*
-3-results/archives/*
+src/archives/*
+results/archives/*
 
 # figures files
-4-figures/*
+results/figures/*
