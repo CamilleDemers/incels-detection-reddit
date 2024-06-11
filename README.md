@@ -3,6 +3,15 @@
 ## Description
 Ce dépôt contient les scripts utilisés pour lire, nettoyer et échantillonner les données utilisées pour entraîner les modèles décrits dans l'article. Il contient également les fichiers de résultats obtenus pour chacune des configurations testées en phase d'apprentissage et de test. 
 
+## Installation
+```
+# Cloner le répertoire
+git clone https://github.com/CamilleDemers/incels-detection-reddit.git
+
+# Librairies nécessaires pour rouler les scripts
+pip install -r requirements.txt
+```
+
 ## Structure du répertoire
 ```
 incels-detection-reddit
@@ -29,15 +38,6 @@ incels-detection-reddit
 │   requirements.txt		         # Dépendances nécessaires pour rouler les scripts 
 ```
 
-## Installation
-```
-# Cloner le répertoire
-git clone https://github.com/CamilleDemers/incels-detection-reddit.git
-
-# Librairies nécessaires pour rouler les scripts
-pip install -r requirements.txt
-```
-
 ## Utilisation des scripts
 ```
 # Lire les fichiers de données provenant de The-Eye / PushShift 
@@ -55,14 +55,12 @@ python scripts/get_most_predictive_features.py
 ```
 
 ## Informations de contact 
-
-Camille Demers et Dominic Forest
+- Camille Demers : camille.demers@umontreal.ca
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-
-**Sources des jeux de données utilisés pour entraîner les modèles** <br/>
+**Références des sources des jeux de données utilisés pour entraîner les modèles** <br/>
 - Ribeiro, M. H., Blackburn, J., Bradlyn, B., de Cristofaro, E., Stringhini, G., Long, S., Greenberg, S. et Zannettou, S. (2020). *Dataset for: The Evolution of the Manosphere Across the Web* (version 1.0) [Ensemble de données]. Zenodo. https://doi.org/10.5281/zenodo.4007913 
 - Baumgartner, J., Zannettou, S., Keegan, B., Squire, M. et Blackburn, J. (2020). The Pushshift Reddit Dataset. Proceedings of the International AAAI Conference on Web and Social Media, 14, 830‑839.
 - stuck_in_the_matrix, R., Watchful1. (2024). Reddit comments/submissions 2005-06 to 2023-12. Academic Torrents. https://academictorrents.com/details/9c263fc85366c1ef8f5bb9da0203f4c8c8db75f4
