@@ -3,6 +3,7 @@ __pycache__/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+*.ipynb
 
 # data files
 data/*
@@ -13,6 +14,3 @@ results/archives/*
 
 # figures files
 results/figures/*
-
-# temp
-src/analysis_of_predictive_features_incels.ipynb
