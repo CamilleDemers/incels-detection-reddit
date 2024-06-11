@@ -1,7 +1,7 @@
 # **Détecter le discours des *incels* sur Reddit : une approche par sac de communautés**<br/> 
 
 ## Description
-Ce dépôt contient les scripts utilisés pour lire, nettoyer et échantillonner les données utilisées pour entraîner les modèles décrits dans l'article *Détecter le discours des incels sur Reddit : une approche par sac de communautés*.
+Ce dépôt contient les scripts utilisés pour lire, nettoyer et échantillonner les données utilisées pour entraîner les modèles décrits dans l'article.
 
 Il contient également les fichiers de résultats obtenus pour chacune des configurations testées en phase d'apprentissage et de test. 
 
