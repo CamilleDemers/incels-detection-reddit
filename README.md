@@ -12,17 +12,18 @@ pip install -r requirements.txt
 ```
 
 ## Structure du répertoire
+Pour exécuter les scripts correctement, le répertoire devrait avoir la structure suivante :
 ```
 incels-detection-reddit/
-├── data/                   # Dossier est absent du répertoire git, mais il devrait aborder la structure suivante
+├── data/                   # Données brutes et prétraitées 
 │   │
-│   ├── incels/             # Données prétraitées pour la classe "incels"
+│   ├─ incels/             # Données prétraitées pour la classe "incels"
 │   │   │
-│   │   └── the-eye_pushshift/  # Données brutes pour la classe "incels"
+│   │   └─ the-eye_pushshift/  # Données brutes pour la classe "incels"
 │   │
-│   ├── neutrals/           # Données prétraitées pour la classe "neutres"
+│   ├─ neutrals/           # Données prétraitées pour la classe "neutres"
 │   │   │
-│   │   └── the-eye_pushshift/  # Données brutes pour la classe "neutres"
+│   │   └─ the-eye_pushshift/  # Données brutes pour la classe "neutres"
 │   │
 │   └── training_datasets/  # Jeux de données pour entraîner les modèles
 │
