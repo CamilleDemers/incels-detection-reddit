@@ -9,6 +9,8 @@ import json
 This script reads data (zst compressed archives) from specific subreddits gathered by The-Eye-Eu (PushShift Archive). It extracts the
 data from Incels subreddits (according to the categorization made by Ribeiro et al., 2021), does some cleaning and filtering, dumps the data into a Pandas DataFrame and exports 
 train and test samples of it to csv files. 
+
+The script is adapted from the example scripts provided by Watchful1 @ The-Eye (https://github.com/Watchful1/PushshiftDumps)
 """
 
 

@@ -9,6 +9,8 @@ import json
 This script reads the zst files gathered from The-Eye-Eu (PushShift Archive). It extracts the
 data from non-Incels subreddits, does some cleaning and filtering, dumps the data into a Pandas DataFrame and exports 
 train and test samples of it to csv files. 
+
+The script is adapted from the example scripts provided by Watchful1 @ The-Eye (https://github.com/Watchful1/PushshiftDumps)
 """
 
 incels_subreddits = pd.read_csv('./utils/subreddit_descriptions.csv')['Subreddit'].tolist()
