@@ -27,7 +27,7 @@ incels-detection-reddit/
 │   │
 │   └── training_datasets/  # Jeux de données pour entraîner les modèles
 │
-├── src/                   # Scripts nécessaires au prétraitement des données et à l'entraînement des modèles
+├── src/                   # Scripts pour le prétraitement des données et l'entraînement des modèles
 │   │
 │   ├── utils/             # Fichiers utilitaires utilisés lors de l'exécution des scripts
 │
