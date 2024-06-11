@@ -6,8 +6,7 @@ Ce dépôt contient les scripts utilisés pour lire, nettoyer et échantillonner
 ## Structure du répertoire
 ```
 incels-detection-reddit/
-├───1-data		# Données brutes et prétraitées - Ce dossier est absent du répertoire git,
-|    |			# mais il devrait aborder la structure suivante
+├───1-data		# Données brutes et prétraitées - Ce dossier est absent du répertoire git, mais devrait arborer la structure suivante
 |    |
 │   │   test_dataset_10.xlsx	# Corpus utilisé pour évaluer les modèles
 │   │
