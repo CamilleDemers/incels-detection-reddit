@@ -7,10 +7,7 @@ Il contient également les fichiers de résultats obtenus pour chacune des confi
 
 ## Installation
 ```
-# Cloner le répertoire
 git clone https://github.com/CamilleDemers/incels-detection-reddit.git
-
-# Librairies nécessaires pour rouler les scripts
 pip install -r requirements.txt
 ```
 
