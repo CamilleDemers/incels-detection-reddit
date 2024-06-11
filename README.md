@@ -5,30 +5,28 @@ Ce dépôt contient les scripts utilisés pour lire, nettoyer et échantillonner
 
 ## Structure du répertoire
 ```
-incels-detection-reddit/
-├───1-data		# Données brutes et prétraitées - Ce dossier est absent du répertoire git, mais devrait arborer la structure suivante
-|    |
-│   │   test_dataset_10.xlsx	# Corpus utilisé pour évaluer les modèles
+incels-detection-reddit
+├──1-data/		                   # Données brutes et prétraitées (dossier absent du répertoire git)
 │   │
-│   ├───incels		# Données prétraitées pour la classe "incels"
+│   ├──incels/		               # Données prétraitées pour la classe "incels"
 │   │   │
-│   │   └───the-eye_pushshift	# Données brutes pour la classe "incels"
+│   │   └─the-eye_pushshift/	  # Données brutes pour la classe "incels"
 │   │
-│   ├───neutrals		# Données prétraitées pour la classe "neutres"
+│   ├──neutrals/		             # Données prétraitées pour la classe "neutres"
 │   │   │
-│   │   └───the-eye_pushshift	# Données brutes pour la classe "neutres"
+│   │   └─the-eye_pushshift/ 	 # Données brutes pour la classe "neutres"
 │   │
-│   └───training_datasets	# Corpus utilisés pour entraîner les modèles (selon différents ratios de données "incels")
+│   └─training_datasets/	      # Corpus utilisés pour entraîner les modèles (selon différents ratios de données "incels")
 │
-├───2-scripts		# Scripts nécessaires au prétraitement des données et à l'entraînement des modèles
+├──2-scripts/		                # Scripts nécessaires au prétraitement des données et à l'entraînement des modèles
 │   │
-│   ├───utils		# Fichiers utilitaires utilisés lors de l'exécution des scripts (ex. mots fonctionnels)
+│   ├─utils/		                 # Fichiers utilitaires utilisés lors de l'exécution des scripts (ex. mots fonctionnels)
 │
-├───3-results		# Fichiers de résultats générés lors de l'exécution des scripts
+├──3-results/		                # Fichiers de résultats générés lors de l'exécution des scripts
 │
-│   .gitignore		# Dossiers et fichiers à ignorer par git
-│   README.md		# Description du projet
-│   requirements.txt		# Dépendances nécessaires pour rouler les scripts 
+│   .gitignore		               # Dossiers et fichiers à ignorer par git
+│   README.md		                # Description du projet
+│   requirements.txt		         # Dépendances nécessaires pour rouler les scripts 
 ```
 
 ## Installation
