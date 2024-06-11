@@ -44,7 +44,7 @@ incels-detection-reddit/
 python scripts/read_incels_zst_to_csv.py
 python scripts/read_incels_zst_to_csv.py
 
-# Constituer les corpus d'apprentissage et de test en échantillonnat les données incels/neutres 
+# Constituer les corpus d'apprentissage et de test 
 python scripts/build_train_test_datasets.py
  
 # Entraîner les modèles et générer les résultats d'apprentissage et de test
