@@ -9,8 +9,6 @@ import numpy as np
 import string
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-from nltk.stem import WordNetLemmatizer
-wnl = WordNetLemmatizer()
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import StratifiedKFold, cross_validate
 from sklearn.metrics import make_scorer, accuracy_score, precision_score, recall_score, f1_score
@@ -34,7 +32,6 @@ STOPWORDS = list(stopwords.words('english')) + [
     "'d", "'ll", "'re", "'s", "'ve", '``', 'could', 'might', 'must', "n't", 'need', 'sha', 'wo', 'would'
 ]
 DATA_FOLDER = '../data/training_datasets'
-TEST_DATA_FILE = '../data/test_dataset_10.xlsx'
 RESULTS_FOLDER = '../results'
 N_FEATURES_VALUES = [100, 200, 300, 400, 500, 750, 1000, 2500, 5000, 10000, 15000]
 
@@ -60,8 +57,8 @@ def load_datasets(folder: str) -> List[str]:
 def load_test_data(filepath: str) -> pd.DataFrame:
     return pd.read_excel(filepath)
 
-def tokenize_lemmatize_remove_stop_words(text: str) -> List[str]:
-    return [wnl.lemmatize(token) for token in word_tokenize(text) if 
+def tokenize_remove_stop_words(text: str) -> List[str]:
+    return [token for token in word_tokenize(text) if 
             token not in STOPWORDS and
             len(token) > 2 and  # Mots de moins de 2 lettres
             not (bool(re.search(r'\d', token))) and # Mots contenant des chiffres
@@ -81,19 +78,19 @@ def evaluate_algorithm(algorithm, X, y, cv, scoring) -> Dict[str, Any]:
 def save_report(df: pd.DataFrame, filename: str):
     df.to_csv(filename, index=False)
 
-def vectorize_tf_idf(corpus: List[str], corpus_test: List[str], n_features: int):
+def vectorize_tf_idf(corpus: List[str], n_features: int):
     vectorizer = TfidfVectorizer(
-        tokenizer=tokenize_lemmatize_remove_stop_words,
+        tokenizer=tokenize_remove_stop_words,
         token_pattern=None,
-        max_features=n_features
+        max_features=n_features,
+        stop_words=STOPWORDS
     )
     X = vectorizer.fit_transform(corpus)
-    X_test = vectorizer.transform(corpus_test)
-    return X, X_test
+    return X
 
-def vectorize_word2vec(corpus: List[str], corpus_test: List[str], n_features: int):
-    tokenized_corpus = [list(tokenize_lemmatize_remove_stop_words(doc)) for doc in corpus]
-    tokenized_corpus_test = [list(tokenize_lemmatize_remove_stop_words(doc)) for doc in corpus_test]
+def vectorize_word2vec(corpus: List[str], n_features: int):
+    tokenized_corpus = [list(tokenize_remove_stop_words(doc)) for doc in corpus]
+    tokenized_corpus_test = [list(tokenize_remove_stop_words(doc)) for doc in corpus_test]
     model_w2v = Word2Vec(
         tokenized_corpus,
         vector_size=n_features,
@@ -108,13 +105,11 @@ def vectorize_word2vec(corpus: List[str], corpus_test: List[str], n_features: in
         return words_vecs.mean(axis=0)
     
     X = np.array([vectorize(doc) for doc in tokenized_corpus])
-    X_test = np.array([vectorize(doc) for doc in tokenized_corpus_test])
-    
-    return X, X_test
+    return X
 
-def vectorize_doc2vec(corpus: List[str], corpus_test: List[str], n_features: int):
-    tokenized_corpus = [list(tokenize_lemmatize_remove_stop_words(doc)) for doc in corpus]
-    tokenized_corpus_test = [list(tokenize_lemmatize_remove_stop_words(doc)) for doc in corpus_test]
+def vectorize_doc2vec(corpus: List[str], n_features: int):
+    tokenized_corpus = [list(tokenize_remove_stop_words(doc)) for doc in corpus]
+    tokenized_corpus_test = [list(tokenize_remove_stop_words(doc)) for doc in corpus_test]
     tagged_corpus = [TaggedDocument(words, [str(idx)]) for idx, words in enumerate(tokenized_corpus)]
     tagged_corpus_test = [TaggedDocument(words, [str(idx)]) for idx, words in enumerate(tokenized_corpus_test)]
     
@@ -126,18 +121,13 @@ def vectorize_doc2vec(corpus: List[str], corpus_test: List[str], n_features: int
     )
     
     X = [model_dmm.dv[str(doc.tags[0])] for doc in tagged_corpus]
-    X_test = [model_dmm.dv[str(doc.tags[0])] for doc in tagged_corpus_test]
     
-    return X, X_test
+    return X
 
 def main(vectorization_method='tfidf'):
     datasets = load_datasets(DATA_FOLDER)
-    df_test = load_test_data(TEST_DATA_FILE)
-    corpus_test = df_test['text_post'].astype('str')
-    y_test = df_test['category'].astype('str')
 
     training_reports = []
-    test_reports = []
 
     for dataset in datasets:
         ratio = int(dataset[14:-7])
@@ -149,21 +139,21 @@ def main(vectorization_method='tfidf'):
 
         for n_features in N_FEATURES_VALUES:
             if vectorization_method == 'tfidf':
-                X, X_test = vectorize_tf_idf(corpus, corpus_test, n_features)
+                X = vectorize_tf_idf(corpus, n_features)
                 vectorization_label = 'TF-IDF'
                 ALGORITHMS['Multinomial Naive Bayes'] = MultinomialNB()
             
             elif vectorization_method == 'word2vec':
                 if n_features>500:
                     break
-                X, X_test = vectorize_word2vec(corpus, corpus_test, n_features)
+                X = vectorize_word2vec(corpus, n_features)
                 vectorization_label = 'CBOW'
                 ALGORITHMS['Gaussian Naive Bayes'] = GaussianNB()
             
             elif vectorization_method == 'doc2vec':
                 if n_features>500:
                     break
-                X, X_test = vectorize_doc2vec(corpus, corpus_test, n_features)
+                X = vectorize_doc2vec(corpus, n_features)
                 vectorization_label = 'DM'
                 ALGORITHMS['Gaussian Naive Bayes'] = GaussianNB()
             
@@ -189,21 +179,6 @@ def main(vectorization_method='tfidf'):
                             f"Accuracy: {results['accuracy']:.4f}, Precision: {results['precision']:.4f}, "
                             f"Recall: {results['recall']:.4f}, F1-score: {results['f1-score']:.4f}")
 
-                algorithm.fit(X, y)
-                predictions_test = algorithm.predict(X_test)
-
-                test_results = {
-                    '% Incels': ratio,
-                    'Algorithme': algorithm_name,
-                    'Modèle de vectorisation': vectorization_label,
-                    'N traits discr.': n_features,
-                    'accuracy': accuracy_score(y_test, predictions_test),
-                    'precision': precision_score(y_test, predictions_test, average='macro', zero_division=0),
-                    'recall': recall_score(y_test, predictions_test, average='macro', zero_division=0),
-                    'f1-score': f1_score(y_test, predictions_test, average='macro', zero_division=0)
-                }
-
-                test_reports.append(test_results)
 
         report_df = pd.DataFrame(report)
         report_df['nb_posts_incels'] = (report_df['% Incels'].apply(lambda x: x / 100) * df.shape[0]).astype(int)
@@ -218,8 +193,6 @@ def main(vectorization_method='tfidf'):
     final_report_df = pd.concat(training_reports)
     save_report(final_report_df.sort_values(by='f1-score', ascending=False), os.path.join(RESULTS_FOLDER, f'results_training_{vectorization_method}.csv'))
 
-    test_report_df = pd.DataFrame(test_reports)
-    save_report(test_report_df.sort_values(by='f1-score', ascending=False), os.path.join(RESULTS_FOLDER, f'results_test_{vectorization_method}.csv'))
 
 if __name__ == '__main__':
     main(vectorization_method='tfidf')  # 'tfidf', 'word2vec' or 'doc2vec'
