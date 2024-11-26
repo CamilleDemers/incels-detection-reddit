@@ -3,18 +3,14 @@ __pycache__/
 
 # Jupyter Notebook
 .ipynb_checkpoints
-
-# Archives 2021
-0-archives_2021/*
-2-scripts/utils/parametres_experimentations_wordstat.xlsx
-2-scripts/utils/fig_results.png
-2-scripts/temp.ipynb
-2-scripts/read_zst_to_ndjson.py
-2-scripts/archives/*
-
+*.ipynb
 
 # data files
-1-data/*
+data/*
 
-# results archives
-3-results/*
+# archives files
+src/archives/*
+results/archives/*
+
+# figures files
+results/figures/*

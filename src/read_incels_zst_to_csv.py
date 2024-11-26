@@ -9,6 +9,8 @@ import json
 This script reads data (zst compressed archives) from specific subreddits gathered by The-Eye-Eu (PushShift Archive). It extracts the
 data from Incels subreddits (according to the categorization made by Ribeiro et al., 2021), does some cleaning and filtering, dumps the data into a Pandas DataFrame and exports 
 train and test samples of it to csv files. 
+
+The script is adapted from the example scripts provided by Watchful1 @ The-Eye (https://github.com/Watchful1/PushshiftDumps)
 """
 
 
@@ -76,7 +78,7 @@ def read_zst_file(filepath, chunk_size=50000):
             yield pd.DataFrame(chunk)
 
 # - Read data from specific subreddits archives (from The Eye PushShift Archive)
-folder = '../1-data/incels/the-eye_pushshift/'
+folder = '../data/incels/the-eye_pushshift/'
 
 data_subreddits = pd.DataFrame()
 
@@ -117,7 +119,7 @@ for year in list(range(2014, 2024)):
     sample_train_incels = pd.concat([sample_train_incels, sample])
 
 
-sample_train_incels.to_csv('../1-data/incels/incels_data_training.csv', index=False)
+sample_train_incels.to_csv('../data/incels/incels_data_training.csv', index=False)
 
 # Test
 sample = pd.DataFrame()
@@ -132,4 +134,4 @@ for year in range(2014, 2024):
     sample = pd.concat([sample_comments, sample_submissions])
     sample_test_incels = pd.concat([sample_test_incels, sample])
 
-sample_test_incels.to_csv('../1-data/incels/incels_data_test.csv', index=False)
+sample_test_incels.to_csv('../data/incels/incels_data_test.csv', index=False)
