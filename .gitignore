@@ -6,7 +6,7 @@ __pycache__/
 *.ipynb
 
 # data files
-data/*
+1-data/*
 
 # archives files
 src/archives/*
