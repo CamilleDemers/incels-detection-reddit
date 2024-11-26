@@ -1,4 +1,4 @@
-# **Détecter le discours des *incels* sur Reddit : une approche par sac de communautés**<br/> 
+# **Comparaison de méthodes pour la détection des *incels* sur Reddit**<br/> 
 
 ## Description
 Ce dépôt contient les scripts utilisés pour lire, nettoyer et échantillonner les données utilisées pour entraîner les modèles décrits dans l'article.
