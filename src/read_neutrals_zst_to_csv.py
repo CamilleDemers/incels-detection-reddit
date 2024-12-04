@@ -13,7 +13,7 @@ train and test samples of it to csv files.
 The script is adapted from the example scripts provided by Watchful1 @ The-Eye (https://github.com/Watchful1/PushshiftDumps)
 """
 
-incels_subreddits = pd.read_csv('./utils/subreddit_descriptions.csv')['Subreddit'].tolist()
+incels_subreddits = pd.read_csv('src/utils/subreddit_descriptions.csv')['Subreddit'].tolist()
 incels_subreddits = [x[3:] for x in incels_subreddits]
 
 def clean_filter_chunk(chunk, incels_subreddits):
@@ -65,6 +65,7 @@ def clean_filter_chunk(chunk, incels_subreddits):
 
     # Suppression des doublons
     chunk = chunk.drop_duplicates(subset='id_post')
+    chunk = chunk.drop_duplicates(subset=['text_post', 'subreddit'])
 
     return chunk
 
@@ -89,7 +90,7 @@ def read_zst_file(filepath, chunk_size=50000):
 sample_train_neutrals = pd.DataFrame()
 sample_test_neutrals = pd.DataFrame()
 
-folder = '../1-data/neutrals/the-eye_pushshift'
+folder = 'data/neutrals/the-eye_pushshift'
 
 for file in os.listdir(folder):
     try:
@@ -133,5 +134,5 @@ for file in os.listdir(folder):
 sample_train_neutrals['category'] = 'neutral'
 sample_test_neutrals['category'] = 'neutral'
 
-sample_train_neutrals.to_csv('../1-data/neutrals/neutrals_data_training.csv', index=False)
-sample_test_neutrals.to_csv('../1-data/neutrals/neutrals_data_test.csv', index=False)
+sample_train_neutrals.to_csv('data/neutrals/neutrals_data_training.csv', index=False)
+sample_test_neutrals.to_csv('data/neutrals/neutrals_data_test.csv', index=False)

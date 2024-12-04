@@ -13,7 +13,6 @@ a sample of it to a csv file.
 The script is adapted from the example scripts provided by Watchful1 @ The-Eye (https://github.com/Watchful1/PushshiftDumps)
 """
 
-
 def clean_filter_subreddit_chunk_incels(chunk):
     chunk = chunk.rename(
         columns={
@@ -56,7 +55,7 @@ def clean_filter_subreddit_chunk_incels(chunk):
 
     # Remove duplicates (if any)
     chunk = chunk.drop_duplicates('id_post')
-    chunk = chunk.drop_duplicates('text_post') # Nouveau -- voir si ça aide ou pas
+    chunk = chunk.drop_duplicates(subset=['text_post', 'subreddit']) 
     
     return chunk
 
@@ -77,7 +76,7 @@ def read_zst_file(filepath, chunk_size=50000):
             yield pd.DataFrame(chunk)
 
 # - Read data from specific subreddits archives (from The Eye PushShift Archive)
-folder = '../data/incels/the-eye_pushshift/'
+folder = 'data/incels/the-eye_pushshift/'
 
 data_subreddits = pd.DataFrame()
 
@@ -105,7 +104,7 @@ data_subreddits['category'] = 'incel'
 # Extraire un échantillon
 # Train
 
-sample_incels = pd.DataFrame()
+sample_train_incels = pd.DataFrame()
 sample_test_incels = pd.DataFrame()
 
 for year in list(range(2014, 2024)):
@@ -118,7 +117,7 @@ for year in list(range(2014, 2024)):
     sample_train_incels = pd.concat([sample_train_incels, sample])
 
 
-sample_train_incels.to_csv('../data/incels/incels_data_training.csv', index=False)
+sample_train_incels.to_csv('data/incels/incels_data_training.csv', index=False)
 
 # Test
 sample = pd.DataFrame()
@@ -133,4 +132,4 @@ for year in range(2014, 2024):
     sample = pd.concat([sample_comments, sample_submissions])
     sample_test_incels = pd.concat([sample_test_incels, sample])
 
-sample_test_incels.to_csv('../data/incels/incels_data_test.csv', index=False)
+sample_test_incels.to_csv('data/incels/incels_data_test.csv', index=False)
