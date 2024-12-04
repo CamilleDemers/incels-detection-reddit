@@ -25,43 +25,49 @@ def clean_filter_chunk(chunk, incels_subreddits):
             'id': 'id_post'}
         )
     
+    # Conversion et sélection des colonnes
     chunk['date_post'] = pd.to_numeric(chunk['date_post'], errors='coerce')
-    chunk['date_post'] = pd.to_datetime(chunk['date_post'], unit='s').dt.year 
-    
+    chunk['date_post'] = pd.to_datetime(chunk['date_post'], unit='s', errors='coerce').dt.year
     chunk = chunk[['date_post', 'id_post', 'author', 'subreddit', 'text_post']]
 
-    # Remove na values 
-    chunk = chunk.dropna()
-    
-    # Remove data that come from incels subreddits
-    chunk = chunk[~(chunk['subreddit'].astype(str).isin(incels_subreddits))]
-    chunk = chunk[~(chunk['subreddit'].str.contains('incel', na=False))]
+    # Nettoyage et filtrage
+    chunk = (
+        chunk
+        .dropna()  # Suppression des valeurs manquantes
+        .query("author != 'AutoModerator'")  # Suppression des actions de bot
+    )
 
-    # Remove URLs
-    chunk['text_post'] = chunk['text_post'].str.replace(r'http\S+', ' ', regex=True)
+    # Filtrer les subreddits liés aux "incels"
+    chunk = chunk[
+        ~chunk['subreddit'].astype(str).isin(incels_subreddits) & 
+        ~chunk['subreddit'].str.contains('incel', na=False)
+    ]
 
-    # Remove new line delimiters
-    chunk['text_post'] = chunk['text_post'].str.replace('\n', ' ')
+    # Nettoyage du texte
+    chunk['text_post'] = (
+        chunk['text_post']
+        .astype(str)
+        .str.replace(r'http\S+', ' ', regex=True)  # Suppression des URLs
+        .str.replace('\n', ' ')                   # Suppression des sauts de ligne
+        .str.replace(r'&[a-zA-Z0-9#]+;', ' ', regex=True)  # Suppression des entités HTML
+        .str.strip()                              # Suppression des espaces inutiles
+        .str.replace(r'\s\s+', ' ', regex=True)   # Suppression des espaces multiples
+        .str.lower()                              # Mise en minuscules
+    )
 
-    # Remove HTML entities
-    html_entity_pattern = re.compile(r'&[a-zA-Z0-9#]+;')
-    chunk['text_post'] = chunk['text_post'].str.replace(html_entity_pattern, ' ', regex=True)
+    # Filtrer les posts invalides ou vides
+    chunk = chunk[
+        (chunk['text_post'] != '[removed]') &
+        (chunk['text_post'] != '[deleted]') &
+        (chunk['text_post'] != '') &
+        (chunk['text_post'].str.len() > 1)  # Minimum 2 caractères
+    ]
 
-    # Remove empty posts
-    chunk = chunk[(chunk['text_post'] != '[removed]') & (chunk['text_post'] != '[deleted]')]
-    chunk = chunk[chunk['text_post'] != '']
-    chunk = chunk[chunk['text_post'].str.len() > 1]  # 1 character only
-
-    # Remove bot actions
-    chunk = chunk[chunk['author'] != 'AutoModerator']
-    
-    # Lowercasing 
-    chunk['text_post'] = chunk['text_post'].astype(str).apply(lambda x: x.lower())
-
-    # Remove duplicates (if any)
+    # Suppression des doublons
     chunk = chunk.drop_duplicates(subset='id_post')
 
     return chunk
+
 
 def read_zst_file(filepath, chunk_size=50000):
     dctx = zstd.ZstdDecompressor(
