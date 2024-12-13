@@ -17,3 +17,6 @@ results/figures/*
 
 # virtual environnement
 env/*
+
+# word2vec models
+word2vec_models/*
