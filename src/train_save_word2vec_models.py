@@ -25,10 +25,10 @@ def tokenize_remove_stop_words(text: str):
             not (any(char in punct for char in token))] # Mots contenant des signes de ponctuation
 
 # Lecture du jeu de données d'entraînement
-datasets = os.listdir('../data/training_datasets/')
+datasets = os.listdir('data/training_datasets/')
 
 for dataset in datasets:
-    train = pd.read_csv('../data/training_datasets/dataset')
+    train = pd.read_csv('data/training_datasets/' + dataset)
     train['category'] = train['category'].apply(lambda x: 1 if x == 'incel' else 0)
     X_train, y_train = train.text_post.astype('str'), train.category
 

@@ -75,8 +75,14 @@ def vectorize_word2vec(corpus, w2v_model):
     return X
 
 
-features_tfidf = [1000, 2000, 3000, 4000, 5000]
+features_tfidf = [1000, 2000, 3000, 4000, 5000, 10000, 15000]
 features_w2v = [100, 200, 300, 400, 500]
+
+classifiers = [
+    LogisticRegression(), 
+    LinearSVC(dual="auto"),
+    RandomForestClassifier(n_estimators=32)
+]
 
 results_training = []
 results_test = []
@@ -134,41 +140,29 @@ def train_and_evaluate(dataset):
     tf_idf_param_grid = [
         {
             "vectorizer__max_features": features_tfidf,
-            "classify" : [
-                LogisticRegression(), 
-                LinearSVC(dual="auto"),
-                MultinomialNB(),
-                ]
+            "classify" : classifiers + [MultinomialNB()]
         }
     ]
 
-    w2v_d2v_param_grid = [
+    w2v_param_grid = [
             {
-            "classify" : [
-                RandomForestClassifier(n_estimators=32), 
-                LinearSVC(dual="auto"),
-                GaussianNB(),
-                ]
+            "classify" : classifiers
         }
     ]
 
     sbert_param_grid = [
             {
-            "classify" : [
-                LogisticRegression(), 
-                LinearSVC(dual="auto"),
-                GaussianNB(),
-                ]
+            "classify" : classifiers
         }
     ]
 
     param_grid = {
         'TfidfVectorizer' : tf_idf_param_grid,
-        'Word2Vec__100' : w2v_d2v_param_grid,
-        'Word2Vec__200' : w2v_d2v_param_grid,
-        'Word2Vec__300' : w2v_d2v_param_grid,
-        'Word2Vec__400' : w2v_d2v_param_grid,
-        'Word2Vec__500' : w2v_d2v_param_grid,
+        'Word2Vec__100' : w2v_param_grid,
+        'Word2Vec__200' : w2v_param_grid,
+        'Word2Vec__300' : w2v_param_grid,
+        'Word2Vec__400' : w2v_param_grid,
+        'Word2Vec__500' : w2v_param_grid,
         'SentenceTransformer (all-MiniLM-L6-v2)' : sbert_param_grid
     }
 
@@ -188,7 +182,7 @@ def train_and_evaluate(dataset):
             param_grid=specific_param_grid, 
             verbose=2, 
             cv=cv,
-            n_jobs=1, # Éviter la concurrence avec Parallel
+            n_jobs=1, # Éviter la concurrence des ressources 
             refit='f1_macro', 
             scoring=['accuracy','f1_macro']
         )
@@ -200,12 +194,12 @@ def train_and_evaluate(dataset):
         results_dic = grid_search.cv_results_
         results_dic['Vectorizer'] = vectorizer_name
         results_dic['Ratio incels'] = int(ratio_incels)
-        results_dic.to_csv(f'../results/results_training_{vectorizer_name}_{ratio_incels}pc_3x_repeated-10folds.csv', index=False)
+        pd.DataFrame(results_dic).to_csv(f'../results/results_training_{vectorizer_name}_{ratio_incels}pc_3x_repeated-10folds.csv', index=False)
         results_training.append(results_dic)
 
 
 # Exécuter en parallèle sur plusieurs cœurs
-Parallel(n_jobs=-1, verbose=2)(
+Parallel(n_jobs=9, verbose=2)(
     delayed(train_and_evaluate)(dataset)
     for dataset in os.listdir('../data/training_datasets') 
 )
