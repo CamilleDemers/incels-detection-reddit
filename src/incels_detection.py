@@ -93,7 +93,7 @@ def train_and_evaluate(dataset):
     ratio_incels = dataset[-8:-6]
 
     ### Lecture du jeu de données et partitionnement de celles-ci en ensembles d'entraînement et de test
-    train = pd.read_csv(f'../data/training_datasets/{dataset}')
+    train = pd.read_csv(f'../data/training_datasets/{dataset}').sample(200)
     train['category'] = train['category'].apply(lambda x: 1 if x == 'incel' else 0)
 
     X_train, y_train = train.text_post.astype('str'), train.category
@@ -109,7 +109,7 @@ def train_and_evaluate(dataset):
     ) for i in features_w2v]
 
     vectorizers = {
-        # TF-IDF 
+        # # TF-IDF 
         # 'TfidfVectorizer' : TfidfVectorizer(            
         #     stop_words=stopw,
         #     tokenizer=word_tokenize,
@@ -118,23 +118,21 @@ def train_and_evaluate(dataset):
         # ),
 
         # Word2Vec 
-        'Word2Vec__100' : word2vec_transformers[0],
-        'Word2Vec__200' : word2vec_transformers[1],
-        'Word2Vec__300' : word2vec_transformers[2],
-        'Word2Vec__400' : word2vec_transformers[3],
-        'Word2Vec__500' : word2vec_transformers[4],
-
-        # Doc2Vec
+        # 'Word2Vec__100' : word2vec_transformers[0],
+        # 'Word2Vec__200' : word2vec_transformers[1],
+        # 'Word2Vec__300' : word2vec_transformers[2],
+        # 'Word2Vec__400' : word2vec_transformers[3],
+        # 'Word2Vec__500' : word2vec_transformers[4],
 
         # Sentence-BERT
-        # 'SentenceTransformer (all-MiniLM-L6-v2)': FunctionTransformer(
-        #     lambda x: model.encode(
-        #         x.squeeze().astype(str).values,
-        #         batch_size=64,
-        #         convert_to_numpy=True,
-        #         show_progress_bar=True,
-        #         device=device)
-        # )
+        'SentenceTransformer (all-MiniLM-L6-v2)': FunctionTransformer(
+            lambda x: model.encode(
+                x.squeeze().astype(str).values,
+                batch_size=64,
+                convert_to_numpy=True,
+                show_progress_bar=True,
+                device=device)
+        )
     }
 
     tf_idf_param_grid = [
@@ -166,8 +164,8 @@ def train_and_evaluate(dataset):
         'SentenceTransformer (all-MiniLM-L6-v2)' : sbert_param_grid
     }
 
-    cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=42) # Si temps de faire des tests d'hypothèse
-    # cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+    #cv = RepeatedStratifiedKFold(n_splits=10, n_repeats=3, random_state=42) # Si temps de faire des tests d'hypothèse
+    cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
     # Définition du pipeline de recherche d'hyperparamètres 
     for vectorizer_name, vectorizer in vectorizers.items():
         specific_param_grid = param_grid.get(vectorizer_name, {})
@@ -184,7 +182,7 @@ def train_and_evaluate(dataset):
             cv=cv,
             n_jobs=1, # Éviter la concurrence des ressources 
             refit='f1_macro', 
-            scoring=['accuracy','f1_macro']
+            scoring=['accuracy', 'recall', 'precision', 'f1_macro']
         )
 
         print(f'Running GridSearchCV for {vectorizer_name}...')
@@ -199,7 +197,7 @@ def train_and_evaluate(dataset):
 
 
 # Exécuter en parallèle sur plusieurs cœurs
-Parallel(n_jobs=9, verbose=2)(
+Parallel(n_jobs=-1, verbose=2)(
     delayed(train_and_evaluate)(dataset)
     for dataset in os.listdir('../data/training_datasets') 
 )
