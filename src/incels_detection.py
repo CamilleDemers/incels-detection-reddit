@@ -75,7 +75,7 @@ def vectorize_word2vec(corpus, w2v_model):
     return X
 
 
-features_tfidf = [1000, 2000, 3000, 4000, 5000, 10000, 15000]
+features_tfidf = [1000, 2500, 5000, 10000, 15000]
 features_w2v = [100, 200, 300, 400, 500]
 
 classifiers = [
@@ -93,7 +93,7 @@ def train_and_evaluate(dataset):
     ratio_incels = dataset[-8:-6]
 
     ### Lecture du jeu de données et partitionnement de celles-ci en ensembles d'entraînement et de test
-    train = pd.read_csv(f'../data/training_datasets/{dataset}').sample(200)
+    train = pd.read_csv(f'../data/training_datasets/{dataset}')
     train['category'] = train['category'].apply(lambda x: 1 if x == 'incel' else 0)
 
     X_train, y_train = train.text_post.astype('str'), train.category
@@ -196,8 +196,12 @@ def train_and_evaluate(dataset):
         results_training.append(results_dic)
 
 
-# Exécuter en parallèle sur plusieurs cœurs
-Parallel(n_jobs=-1, verbose=2)(
-    delayed(train_and_evaluate)(dataset)
-    for dataset in os.listdir('../data/training_datasets') 
-)
+# Pour exécuter en parallèle sur plusieurs cœurs (TD-IDF)
+# Parallel(n_jobs=-1, verbose=2)(
+#     delayed(train_and_evaluate)(dataset)
+#     for dataset in os.listdir('../data/training_datasets') 
+# )
+
+# Pour SBERT, il faut utiliser le GPU
+for dataset in os.listdir('../data/training_datasets'):
+    train_and_evaluate(dataset)
