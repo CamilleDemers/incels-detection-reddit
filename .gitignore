@@ -1,0 +1,22 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# data files
+1-data/*
+data/*
+
+# archives files
+src/archives/*
+results/archives/*
+
+# figures files
+results/figures/*
+
+# virtual environnement
+env/*
+
+# word2vec models
+word2vec_models/*
