@@ -10,6 +10,9 @@ commentaires provenant de Reddit.
 ## Installation
 ```
 git clone https://github.com/CamilleDemers/incels-detection-reddit.git
+python -m venv venv
+source venv/bin/activate  # macOS/Linux
+venv\Scripts\activate  # Windows
 pip install -r requirements.txt
 ```
 
@@ -28,7 +31,9 @@ incels-detection-reddit/
 │   │   └── the-eye_pushshift/  # Données brutes pour la classe "neutres"
 │   │
 │   └── training_datasets/  # Jeux de données pour entraîner les modèles
-│
+│   │
+│   ├── env/                # Environnement virtuel contenant les dépendances du projet
+│   │
 ├── src/                   # Scripts pour le prétraitement des données et l'entraînement des modèles
 │   │
 │   ├── utils/             # Fichiers utilitaires utilisés lors de l'exécution des scripts
